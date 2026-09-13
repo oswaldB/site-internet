@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styleguide — EX'IM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'BALTO';
+      font-style: normal;
+      font-weight: normal;
+      font-display: swap;
+      src: url('https://exim.fr/wp-content/uploads/2024/10/Balto-Medium.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO';
+      font-style: italic;
+      font-weight: normal;
+      font-display: swap;
+      src: url('https://exim.fr/wp-content/uploads/2024/10/Balto-MediumItalic.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO';
+      font-style: normal;
+      font-weight: bold;
+      font-display: swap;
+      src: url('https://exim.fr/wp-content/uploads/2024/10/Balto-Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO';
+      font-style: italic;
+      font-weight: bold;
+      font-display: swap;
+      src: url('https://exim.fr/wp-content/uploads/2024/10/Balto-BoldItalic.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO';
+      font-style: normal;
+      font-weight: 900;
+      font-display: swap;
+      src: url('https://exim.fr/wp-content/uploads/2024/10/Balto-Black.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO';
+      font-style: italic;
+      font-weight: 900;
+      font-display: swap;
+      src: url('https://exim.fr/wp-content/uploads/2024/10/Balto-BlackItalic.ttf') format('truetype');
+    }
+
+    :root {
+      --color-primary: #D0404A;
+      --color-secondary: #248887;
+      --color-text: #343434;
+      --color-accent: #F6A316;
+      --color-white: #FFFFFF;
+      --color-light-bg: #F8F8F8;
+      --color-section-bg: #F7F7F7;
+      --font-heading: 'BALTO', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: var(--color-white);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: bold;
+    }
+
+    h1, h2 {
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .divider-accent {
+      width: 150px;
+      height: 6px;
+      background-color: var(--color-accent);
+    }
+
+    .tag-primary {
+      display: inline-block;
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      padding: 5px 10px;
+      font-family: var(--font-heading);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.875rem;
+    }
+
+    .btn-accent {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      border-radius: 30px;
+      padding: 15px 20px;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-accent:hover {
+      background-color: var(--color-primary);
+    }
+
+    .btn-large {
+      border-radius: 50px;
+      padding: 25px 30px;
+      font-size: 1.125rem;
+      gap: 1.25rem;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-secondary);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: 10px;
+      padding: 12px 24px;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-primary);
+    }
+
+    .card {
+      background-color: var(--color-light-bg);
+      border-radius: 15px;
+      padding: 20px 20px 40px;
+      text-align: center;
+    }
+
+    .card img {
+      border-radius: 15px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .icon-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .icon-box .icon-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background-color: var(--color-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white);
+      font-size: 2rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .icon-box:hover .icon-circle {
+      background-color: var(--color-accent);
+    }
+
+    .nav-link {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--color-accent);
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--color-accent);
+      border-radius: 13px;
+      color: var(--color-accent);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .social-icon:hover {
+      background-color: var(--color-accent);
+      color: var(--color-white);
+    }
+  </style>
+</head>
+<body class="antialiased"><!-- Rendered by PI WEB plugin: html-preview -->
+
+  <!-- Header -->
+  <header class="bg-[#343434] text-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <img alt="EX'IM" class="h-12 w-auto" src="https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png">
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#colors" class="nav-link">Couleurs</a>
+        <a href="#typography" class="nav-link">Typographie</a>
+        <a href="#components" class="nav-link">Composants</a>
+        <a href="#layout" class="nav-link">Layout</a>
+      </nav>
+      <a href="#" class="btn-secondary hidden md:inline-flex">Contact</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-[#343434] text-white text-center px-6 lg:px-12 pt-32 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-5xl lg:text-7xl font-bold uppercase leading-tight mb-6" style="letter-spacing: 1.5px; line-height: 1.13;">
+        Styleguide EX'IM
+      </h1>
+      <p class="text-xl lg:text-2xl font-semibold text-white/90 mb-10" style="font-family: 'Montserrat', sans-serif;">
+        Diagnostic immobilier &amp; Rénovation énergétique
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#colors" class="btn-large btn-accent">
+          Découvrir la charte
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Couleurs -->
+  <section id="colors" class="py-20 px-6 lg:px-12 max-w-6xl mx-auto">
+    <div class="mb-12">
+      <span class="tag-primary mb-4">01</span>
+      <h2 class="text-3xl lg:text-4xl font-bold uppercase mt-4 mb-2" style="letter-spacing: 1.5px;">Couleurs</h2>
+      <div class="divider-accent mb-6"></div>
+      <p class="text-base font-semibold uppercase text-[#343434]" style="font-family: 'Montserrat', sans-serif;">Palette de marque</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Primary -->
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-100">
+        <div class="h-32 bg-[#D0404A]"></div>
+        <div class="p-5 bg-white">
+          <h3 class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px;">Primary</h3>
+          <p class="text-sm text-gray-500 font-mono mt-1">#D0404A</p>
+          <p class="text-xs text-gray-400 mt-1">Rouge EX'IM — titres, hover, tags</p>
+        </div>
+      </div>
+      <!-- Secondary -->
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-100">
+        <div class="h-32 bg-[#248887]"></div>
+        <div class="p-5 bg-white">
+          <h3 class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px;">Secondary</h3>
+          <p class="text-sm text-gray-500 font-mono mt-1">#248887</p>
+          <p class="text-xs text-gray-400 mt-1">Turquoise — icônes, header button</p>
+        </div>
+      </div>
+      <!-- Accent -->
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-100">
+        <div class="h-32 bg-[#F6A316]"></div>
+        <div class="p-5 bg-white">
+          <h3 class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px;">Accent</h3>
+          <p class="text-sm text-gray-500 font-mono mt-1">#F6A316</p>
+          <p class="text-xs text-gray-400 mt-1">Orange/Jaune — CTA, dividers, hover icônes</p>
+        </div>
+      </div>
+      <!-- Text -->
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-100">
+        <div class="h-32 bg-[#343434]"></div>
+        <div class="p-5 bg-white">
+          <h3 class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px;">Text</h3>
+          <p class="text-sm text-gray-500 font-mono mt-1">#343434</p>
+          <p class="text-xs text-gray-400 mt-1">Gris foncé — corps de texte, fonds</p>
+        </div>
+      </div>
+      <!-- Light BG -->
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-100">
+        <div class="h-32 bg-[#F8F8F8] border-b border-gray-100"></div>
+        <div class="p-5 bg-white">
+          <h3 class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px;">Light BG</h3>
+          <p class="text-sm text-gray-500 font-mono mt-1">#F8F8F8</p>
+          <p class="text-xs text-gray-400 mt-1">Fond cards</p>
+        </div>
+      </div>
+      <!-- Section BG -->
+      <div class="rounded-2xl overflow-hidden shadow-md border border-gray-100">
+        <div class="h-32 bg-[#F7F7F7] border-b border-gray-100"></div>
+        <div class="p-5 bg-white">
+          <h3 class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px;">Section BG</h3>
+          <p class="text-sm text-gray-500 font-mono mt-1">#F7F7F7</p>
+          <p class="text-xs text-gray-400 mt-1">Fond sections alternées</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typographie -->
+  <section id="typography" class="py-20 px-6 lg:px-12 max-w-6xl mx-auto bg-[#F7F7F7]">
+    <div class="mb-12">
+      <span class="tag-primary mb-4">02</span>
+      <h2 class="text-3xl lg:text-4xl font-bold uppercase mt-4 mb-2" style="letter-spacing: 1.5px;">Typographie</h2>
+      <div class="divider-accent mb-6"></div>
+      <p class="text-base font-semibold uppercase text-[#343434]" style="font-family: 'Montserrat', sans-serif;">BALTO &amp; Montserrat</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-sm font-bold uppercase text-[#248887] mb-6" style="font-family: 'Montserrat', sans-serif; letter-spacing: 1.5px;">Headings — BALTO Bold</h3>
+        <div class="space-y-6">
+          <div>
+            <p class="text-xs text-gray-400 mb-1">H1 — 75px / lh 85px</p>
+            <h1 class="text-5xl lg:text-7xl font-bold uppercase" style="letter-spacing: 1.5px; line-height: 1.13;">Titre Hero</h1>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 mb-1">H2 — 36px</p>
+            <h2 class="text-3xl lg:text-4xl font-bold uppercase" style="letter-spacing: 1.5px;">Titre Section</h2>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 mb-1">H3 — 20px Montserrat Bold Uppercase</p>
+            <h3 class="text-xl font-bold uppercase" style="font-family: 'Montserrat', sans-serif;">Sous-titre Montserrat</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-sm font-bold uppercase text-[#248887] mb-6" style="font-family: 'Montserrat', sans-serif; letter-spacing: 1.5px;">Body — Montserrat 400</h3>
+        <div class="space-y-6">
+          <div>
+            <p class="text-xs text-gray-400 mb-1">Paragraphe — 16px / 400</p>
+            <p class="text-base leading-relaxed">
+              EX'IM est un réseau national de diagnostiqueurs certifiés. Nous réalisons vos diagnostics immobiliers obligatoires : DPE, diagnostic gaz, amiante, audit énergétique et contrôle des bâtiments.
+            </p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 mb-1">Texte accent — 14px / 500</p>
+            <p class="text-sm font-medium" style="font-family: 'Montserrat', sans-serif;">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+            </p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 mb-1">Label / Tag — 14px BALTO Bold Uppercase</p>
+            <span class="tag-primary">Diagnostic DPE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Composants -->
+  <section id="components" class="py-20 px-6 lg:px-12 max-w-6xl mx-auto">
+    <div class="mb-12">
+      <span class="tag-primary mb-4">03</span>
+      <h2 class="text-3xl lg:text-4xl font-bold uppercase mt-4 mb-2" style="letter-spacing: 1.5px;">Composants</h2>
+      <div class="divider-accent mb-6"></div>
+      <p class="text-base font-semibold uppercase text-[#343434]" style="font-family: 'Montserrat', sans-serif;">Boutons, cards, icônes &amp; formulaires</p>
+    </div>
+
+    <!-- Boutons -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Boutons</h3>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="#" class="btn-accent">CTA Standard</a>
+        <a href="#" class="btn-accent btn-large">
+          CTA Large
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <a href="#" class="btn-secondary">Bouton Header</a>
+      </div>
+      <div class="mt-6 p-4 bg-gray-50 rounded-lg font-mono text-xs text-gray-600">
+        .btn-accent → bg-[#F6A316] text-white rounded-[30px] px-5 py-4 font-bold uppercase text-sm hover:bg-[#D0404A]<br>
+        .btn-large → rounded-[50px] px-8 py-6 text-lg<br>
+        .btn-secondary → bg-[#248887] rounded-[10px] hover:bg-[#D0404A]
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Cards</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card">
+          <img alt="Diagnostic" class="mb-4" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&amp;h=400&amp;fit=crop">
+          <h4 class="text-lg font-bold uppercase mb-2" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-secondary);">Diagnostic DPE</h4>
+          <p class="text-sm text-[#343434] mb-4">Évaluez la performance énergétique de votre bien immobilier.</p>
+          <a href="#" class="btn-accent text-xs">En savoir plus</a>
+        </div>
+        <div class="card">
+          <img alt="Audit" class="mb-4" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&amp;h=400&amp;fit=crop">
+          <h4 class="text-lg font-bold uppercase mb-2" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-secondary);">Audit Énergétique</h4>
+          <p class="text-sm text-[#343434] mb-4">Un bilan complet pour optimiser votre consommation.</p>
+          <a href="#" class="btn-accent text-xs">En savoir plus</a>
+        </div>
+        <div class="card">
+          <img alt="Amiante" class="mb-4" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&amp;h=400&amp;fit=crop">
+          <h4 class="text-lg font-bold uppercase mb-2" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-secondary);">Diagnostic Amiante</h4>
+          <p class="text-sm text-[#343434] mb-4">Repérez les matériaux contenant de l'amiante.</p>
+          <a href="#" class="btn-accent text-xs">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Images -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Images</h3>
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <p class="text-base text-[#343434] leading-relaxed">
+          Les images utilisées sur le site seront générées automatiquement en fonction de prompts donnés, afin d'illustrer chaque service et chaque page avec des visuels uniques et cohérents avec la charte graphique EX'IM.
+        </p>
+      </div>
+    </div>
+
+    <!-- Icon Boxes -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Icon Boxes</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="icon-box">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <h4 class="text-base font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Diagnostic</h4>
+          <p class="text-sm uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Immobilier</p>
+        </div>
+        <div class="icon-box">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h4 class="text-base font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Certification</h4>
+          <p class="text-sm uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Qualité</p>
+        </div>
+        <div class="icon-box">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+          </div>
+          <h4 class="text-base font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Rapidité</h4>
+          <p class="text-sm uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Intervention</p>
+        </div>
+        <div class="icon-box">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          </div>
+          <h4 class="text-base font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Conformité</h4>
+          <p class="text-sm uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-text);">Légale</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Social Icons</h3>
+      <div class="flex items-center gap-3">
+        <a href="#" class="social-icon" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Liste avec icônes -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Listes avec icônes</h3>
+      <ul class="space-y-4">
+        <li class="flex items-start gap-4">
+          <span class="text-[#F6A316] mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <span class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-white);">Diagnostiqueurs certifiés et assurés</span>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="text-[#F6A316] mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <span class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-white);">Intervention sous 48h sur tout le territoire</span>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="text-[#F6A316] mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <span class="text-lg font-bold uppercase" style="font-family: 'BALTO', sans-serif; letter-spacing: 1.5px; color: var(--color-white);">Rapports conformes aux normes en vigueur</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Divider -->
+    <div class="mb-16">
+      <h3 class="text-xl font-bold uppercase mb-6 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Divider</h3>
+      <div class="divider-accent"></div>
+      <p class="text-xs text-gray-400 mt-2">150px × 6px — couleur Accent (#F6A316)</p>
+    </div>
+  </section>
+
+  <!-- Layout -->
+  <section id="layout" class="py-20 px-6 lg:px-12 max-w-6xl mx-auto bg-[#F7F7F7]">
+    <div class="mb-12">
+      <span class="tag-primary mb-4">04</span>
+      <h2 class="text-3xl lg:text-4xl font-bold uppercase mt-4 mb-2" style="letter-spacing: 1.5px;">Layout</h2>
+      <div class="divider-accent mb-6"></div>
+      <p class="text-base font-semibold uppercase text-[#343434]" style="font-family: 'Montserrat', sans-serif;">Grille, espacements &amp; responsive</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold uppercase mb-4 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Container</h3>
+        <ul class="space-y-3 text-sm text-[#343434]">
+          <li><strong>Max-width :</strong> 1140px (desktop) / 1024px (tablet) / 767px (mobile)</li>
+          <li><strong>Padding horizontal :</strong> 50px (desktop) / 20px (mobile)</li>
+          <li><strong>Grid gap :</strong> 24px par défaut</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold uppercase mb-4 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Border Radius</h3>
+        <ul class="space-y-3 text-sm text-[#343434]">
+          <li><strong>Cards / Images :</strong> 15px</li>
+          <li><strong>Boutons CTA :</strong> 30px (standard) / 50px (large)</li>
+          <li><strong>Bouton header :</strong> 10px</li>
+          <li><strong>Icônes sociales :</strong> 13px</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold uppercase mb-4 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Espacements</h3>
+        <ul class="space-y-3 text-sm text-[#343434]">
+          <li><strong>Section padding vertical :</strong> 50px–200px selon contexte</li>
+          <li><strong>Widgets spacing :</strong> 20px row / 20px column</li>
+          <li><strong>Card padding :</strong> 20px top/sides, 40px bottom</li>
+          <li><strong>Button padding :</strong> 15px 20px / 25px 30px (large)</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-xl font-bold uppercase mb-4 text-[#248887]" style="font-family: 'Montserrat', sans-serif;">Transitions</h3>
+        <ul class="space-y-3 text-sm text-[#343434]">
+          <li><strong>Hover boutons :</strong> background-color 0.3s</li>
+          <li><strong>Hover icônes :</strong> background-color 0.3s, fill/color 0.3s</li>
+          <li><strong>Hover liens :</strong> color 0.3s</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#343434] text-white py-12 px-6 lg:px-12">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img alt="EX'IM" class="h-10 w-auto" src="https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png">
+        <span class="text-sm font-medium" style="font-family: 'Montserrat', sans-serif;">© 2026 EX'IM — Styleguide</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="social-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="#" class="social-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+
+
+<script>
+(function(){
+  function getSelector(el){
+    var t = el.tagName.toLowerCase();
+    if (el.id) return '#'+el.id;
+    var c = Array.from(el.classList).filter(Boolean).join('.');
+    if (c) return t+'.'+c;
+    var n = el.getAttribute('name');
+    if (n) return t+'[name="'+n+'"]';
+    return t;
+  }
+  document.body.addEventListener('keydown', function(e){
+    if (e.key !== ' ') return;
+    var sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    e.preventDefault();
+    var range = sel.getRangeAt(0);
+    var spaceNode = document.createTextNode(' ');
+    range.deleteContents();
+    range.insertNode(spaceNode);
+    range.setStartAfter(spaceNode);
+    range.setEndAfter(spaceNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  });
+
+  document.body.addEventListener('click', function(e){
+    var comp = e.target.closest('[id],[class],div,section,article,nav,aside,header,footer,main,form,a,button,input,select,textarea,label,ul,ol,li');
+    if (!comp) comp = e.target;
+    e.preventDefault();
+    e.stopPropagation();
+    window.parent.postMessage({ type: 'html-preview-btn-click', selector: getSelector(comp) }, '*');
+  }, true);
+})();
+    </script></body></html>
