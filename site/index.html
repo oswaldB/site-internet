@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Diagnostic immobilier à Nice et dans les Alpes-Maritimes — ADTI - Ex'im Azur</title>
+  <meta name="description" content="Votre diagnostic immobilier à Nice et dans les Alpes-Maritimes par un expert indépendant. Devis clair, intervention réactive, rapport complet. Contactez l'équipe ADTI - Ex'im Azur au 04 93 89 75 68.">
+  <link rel="canonical" href="https://www.adti06.com/">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="ADTI - Ex'im Azur">
+  <meta property="og:title" content="Diagnostic immobilier à Nice et dans les Alpes-Maritimes — ADTI - Ex'im Azur">
+  <meta property="og:description" content="Devis en 2 minutes, intervention en 48h, rapport complet. Diagnostiqueurs certifiés, indépendants et assurés, implantés à Nice.">
+  <meta property="og:url" content="https://www.adti06.com/">
+  <meta property="og:image" content="https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png">
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:   '#D0404A',
+            secondary: '#248887',
+            accent:    '#F6A316',
+            ink:       '#343434',
+            light:     '#F8F8F8',
+            section:   '#F7F7F7'
+          },
+          fontFamily: {
+            heading: ['BALTO', 'Montserrat', 'sans-serif'],
+            body: ['Montserrat', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Alpine.js (interactions : menu, dropdown) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <!-- Leaflet (carte de couverture) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- BALTO est auto-hébergé : les fichiers servis depuis exim.fr sont bloqués
+       par CORS (pas d'en-tête Access-Control-Allow-Origin) sur un autre domaine. -->
+  <link rel="preload" href="fonts/Balto-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+  <style>
+    /* ---- Typographie de marque ----
+       Repli sur Montserrat (police de corps de la charte) si BALTO est absent. */
+    @font-face {
+      font-family: 'BALTO'; font-style: normal; font-weight: normal; font-display: swap;
+      src: url('fonts/Balto-Medium.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO'; font-style: italic; font-weight: normal; font-display: swap;
+      src: url('fonts/Balto-MediumItalic.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO'; font-style: normal; font-weight: bold; font-display: swap;
+      src: url('fonts/Balto-Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO'; font-style: italic; font-weight: bold; font-display: swap;
+      src: url('fonts/Balto-BoldItalic.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO'; font-style: normal; font-weight: 900; font-display: swap;
+      src: url('fonts/Balto-Black.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'BALTO'; font-style: italic; font-weight: 900; font-display: swap;
+      src: url('fonts/Balto-BlackItalic.ttf') format('truetype');
+    }
+
+    :root {
+      --color-primary: #D0404A;
+      --color-secondary: #248887;
+      --color-text: #343434;
+      --color-accent: #F6A316;
+      --color-white: #FFFFFF;
+      --color-light-bg: #F8F8F8;
+      --color-section-bg: #F7F7F7;
+      --font-heading: 'BALTO', 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* Le header est fixe : compenser sa hauteur pour les ancres et le contenu. */
+    :root { --header-h: 78px; }
+    main, section[id], [id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+
+    .footer-links a { display: inline-block; padding-block: 0.3rem; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background-color: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: bold; }
+    h1, h2 { text-transform: uppercase; letter-spacing: 1.5px; }
+
+    [x-cloak] { display: none !important; }
+
+    /* ---- Composants du styleguide ---- */
+    .divider-accent { width: 150px; height: 6px; background-color: var(--color-accent); }
+    .divider-accent.is-centered { margin-left: auto; margin-right: auto; }
+
+    .tag-primary {
+      display: inline-block;
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      padding: 5px 10px;
+      font-family: var(--font-heading);
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.875rem;
+    }
+
+    .btn-accent {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background-color: var(--color-accent); color: var(--color-white);
+      font-family: var(--font-body); font-weight: 700; font-size: 0.875rem;
+      text-transform: uppercase; border-radius: 30px; padding: 15px 20px;
+      transition: background-color 0.3s ease; text-decoration: none; border: none; cursor: pointer;
+    }
+    .btn-accent:hover { background-color: var(--color-primary); }
+
+    .btn-large { border-radius: 50px; padding: 25px 30px; font-size: 1.125rem; gap: 1.25rem; }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background-color: var(--color-secondary); color: var(--color-white);
+      font-family: var(--font-body); font-weight: 700; font-size: 0.875rem;
+      border-radius: 10px; padding: 12px 24px;
+      transition: background-color 0.3s ease; text-decoration: none; border: none; cursor: pointer;
+    }
+    .btn-secondary:hover { background-color: var(--color-primary); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
+      background-color: transparent; color: var(--color-white);
+      font-family: var(--font-body); font-weight: 700; font-size: 0.875rem;
+      text-transform: uppercase; border-radius: 50px; padding: 23px 28px;
+      border: 2px solid rgba(255,255,255,0.35);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-ghost:hover { background-color: var(--color-secondary); border-color: var(--color-secondary); }
+
+    .card {
+      background-color: var(--color-light-bg);
+      border-radius: 15px;
+      padding: 20px 20px 40px;
+      text-align: center;
+    }
+    .card img { border-radius: 15px; width: 100%; object-fit: cover; }
+
+    .icon-box { display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center; }
+    .icon-box .icon-circle {
+      width: 90px; height: 90px; border-radius: 50%;
+      background-color: var(--color-secondary);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-white); font-size: 2rem;
+      transition: background-color 0.3s ease;
+    }
+    .icon-box:hover .icon-circle { background-color: var(--color-accent); }
+
+    .nav-link {
+      font-family: var(--font-heading); font-size: 18px; font-weight: bold;
+      text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-white);
+      text-decoration: none; transition: color 0.3s ease;
+    }
+    .nav-link:hover { color: var(--color-accent); }
+
+    .social-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border: 2px solid var(--color-accent);
+      border-radius: 13px; color: var(--color-accent); font-size: 1rem;
+      transition: all 0.3s ease; text-decoration: none;
+    }
+    .social-icon:hover { background-color: var(--color-accent); color: var(--color-white); }
+
+    .section-title { font-family: var(--font-heading); font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; }
+    .section-kicker { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; }
+
+    /* Focus visible accessible */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Carte Leaflet */
+    #map-couverture { height: 420px; width: 100%; border-radius: 15px; z-index: 0; }
+    .leaflet-container { font-family: var(--font-body); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3 focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-bold">
+    Aller au contenu principal
+  </a>
+
+  <!-- ============================= HEADER ============================= -->
+  <header class="bg-ink text-white fixed top-0 left-0 right-0 z-40 shadow-lg" x-data="{ open: false, projet: false }">
+    <div class="max-w-6xl mx-auto px-6 lg:px-12 h-[78px] flex items-center justify-between gap-4">
+
+      <a href="index.html" class="flex items-center gap-3 shrink-0" aria-label="ADTI - Ex'im Azur, retour à l'accueil">
+        <img alt="Logo ADTI - Ex'im Azur" class="h-12 w-auto" src="https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png" width="48" height="48">
+        <span class="hidden sm:block leading-tight">
+          <span class="block font-heading font-bold uppercase tracking-[1.5px] text-base">ADTI - Ex'im Azur</span>
+          <span class="block text-[11px] uppercase tracking-wider text-white/60">Diagnostic immobilier · Nice 06</span>
+        </span>
+      </a>
+
+      <!-- Navigation desktop -->
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Navigation principale">
+        <div class="relative" @keydown.escape="projet = false">
+          <button type="button" class="nav-link flex items-center gap-1.5" :aria-expanded="projet.toString()" aria-haspopup="true" @click="projet = !projet">
+            Votre projet
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" :class="projet ? 'rotate-180' : ''" class="transition-transform"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div x-show="projet" x-cloak x-transition.origin.top @click.outside="projet = false"
+               class="absolute left-0 top-full mt-3 w-80 bg-white text-ink rounded-2xl shadow-2xl p-3 border-t-4 border-accent">
+            <a href="diagnostic-immobilier-vente-nice.html" class="block px-4 py-3 rounded-xl hover:bg-light transition-colors">
+              <span class="block font-heading font-bold uppercase tracking-[1.5px] text-sm text-secondary">Je vends mon bien</span>
+              <span class="block text-xs text-ink/70 mt-0.5">Sécuriser ma vente</span>
+            </a>
+            <a href="diagnostic-immobilier-location-nice.html" class="block px-4 py-3 rounded-xl hover:bg-light transition-colors">
+              <span class="block font-heading font-bold uppercase tracking-[1.5px] text-sm text-secondary">Je mets en location</span>
+              <span class="block text-xs text-ink/70 mt-0.5">Louer en conformité</span>
+            </a>
+            <a href="diagnostic-avant-travaux-nice.html" class="block px-4 py-3 rounded-xl hover:bg-light transition-colors">
+              <span class="block font-heading font-bold uppercase tracking-[1.5px] text-sm text-secondary">Je prépare des travaux</span>
+              <span class="block text-xs text-ink/70 mt-0.5">Anticiper les repérages</span>
+            </a>
+            <a href="diagnostic-copropriete-alpes-maritimes.html" class="block px-4 py-3 rounded-xl hover:bg-light transition-colors">
+              <span class="block font-heading font-bold uppercase tracking-[1.5px] text-sm text-secondary">Syndics de copropriété</span>
+              <span class="block text-xs text-ink/70 mt-0.5">Parties communes</span>
+            </a>
+            <a href="diagnostic-agences-immobilieres-alpes-maritimes.html" class="block px-4 py-3 rounded-xl hover:bg-light transition-colors">
+              <span class="block font-heading font-bold uppercase tracking-[1.5px] text-sm text-secondary">Professionnels de l'immobilier</span>
+              <span class="block text-xs text-ink/70 mt-0.5">Sécuriser vos dossiers</span>
+            </a>
+          </div>
+        </div>
+        <a href="diagnostics-immobiliers-nice.html" class="nav-link">Nos diagnostics</a>
+        <a href="cabinet-diagnostic-immobilier-nice.html" class="nav-link">Notre équipe</a>
+        <a href="zones-intervention-alpes-maritimes.html" class="nav-link">Zones d'intervention</a>
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-4 shrink-0">
+        <a href="tel:+33493897568" class="flex items-center gap-2 py-2 text-sm font-bold text-white hover:text-accent transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          04 93 89 75 68
+        </a>
+        <a href="devis-diagnostic-immobilier-nice.html" class="btn-secondary">Demander un devis</a>
+      </div>
+
+      <!-- Bouton menu mobile -->
+      <button type="button" class="lg:hidden p-2 text-white" @click="open = !open"
+              :aria-expanded="open.toString()" aria-controls="menu-mobile" aria-label="Ouvrir le menu">
+        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Menu mobile -->
+    <div id="menu-mobile" x-show="open" x-cloak x-transition.opacity.duration.200ms
+         class="lg:hidden bg-ink border-t border-white/10 max-h-[calc(100vh-78px)] overflow-y-auto">
+      <nav class="px-6 py-6 flex flex-col gap-1" aria-label="Navigation mobile">
+        <p class="font-heading font-bold uppercase tracking-[1.5px] text-accent text-sm mb-2">Votre projet</p>
+        <a href="diagnostic-immobilier-vente-nice.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Je vends mon bien</a>
+        <a href="diagnostic-immobilier-location-nice.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Je mets mon bien en location</a>
+        <a href="diagnostic-avant-travaux-nice.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Je prépare des travaux</a>
+        <a href="diagnostic-copropriete-alpes-maritimes.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Syndics de copropriété</a>
+        <a href="diagnostic-agences-immobilieres-alpes-maritimes.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Professionnels de l'immobilier</a>
+        <a href="diagnostics-immobiliers-nice.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Nos diagnostics</a>
+        <a href="cabinet-diagnostic-immobilier-nice.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Notre équipe &amp; garanties</a>
+        <a href="zones-intervention-alpes-maritimes.html" class="py-3 border-b border-white/10 font-semibold" @click="open=false">Zones d'intervention</a>
+        <div class="flex flex-col sm:flex-row gap-3 pt-5">
+          <a href="devis-diagnostic-immobilier-nice.html" class="btn-accent justify-center" @click="open=false">Demander un devis</a>
+          <a href="tel:+33493897568" class="btn-ghost justify-center" @click="open=false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            04 93 89 75 68
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" class="pt-[78px]">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="bg-ink text-white px-6 lg:px-12 pt-16 pb-20 lg:pt-20 lg:pb-28">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16 items-center">
+
+        <div>
+          <span class="tag-primary">Diagnostic immobilier · Nice &amp; Alpes-Maritimes</span>
+
+          <h1 class="mt-6 font-bold uppercase leading-[1.15]" style="letter-spacing:1.5px;">
+            <span class="block text-6xl sm:text-7xl leading-none">70&nbsp;%</span>
+            <span class="block text-base sm:text-lg text-white/85 mt-4">des contrôles DGCCRF ont relevé des manquements.</span>
+            <span class="block text-accent text-3xl sm:text-4xl lg:text-[2.6rem] mt-5">Le vôtre ne le sera pas.</span>
+            <span class="block font-body font-bold normal-case tracking-normal text-sm sm:text-base text-white/70 mt-6">Diagnostic immobilier à Nice et dans les Alpes-Maritimes</span>
+          </h1>
+
+          <p class="text-base sm:text-lg font-bold text-white mt-6 max-w-2xl">
+            ADTI — Ex'im Azur : devis en 2 minutes, intervention en 48h, rapport délivré par email. Expertise locale, indépendance garantie.
+          </p>
+
+          <p class="text-base text-white/75 mt-4 max-w-2xl leading-relaxed">
+            <strong class="font-bold text-white">Un diagnostic mal fait, c'est un diagnostic à repayer.</strong>
+            Que vous vendiez, louiez ou prépariez des travaux sur Nice et dans les Alpes-Maritimes, l'équipe ADTI - Ex'im Azur vous accompagne avec clarté, réactivité et un suivi personnalisé — avec la connaissance d'un expert local.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mt-9">
+            <a href="devis-diagnostic-immobilier-nice.html" class="btn-accent btn-large">
+              Demander un devis
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="tel:+33493897568" class="btn-ghost justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              04 93 89 75 68
+            </a>
+          </div>
+
+          <p class="text-sm text-white/60 mt-4">Lundi au vendredi · 9h00–12h00 et 14h00–18h00</p>
+
+          <ul class="flex flex-wrap gap-x-8 gap-y-3 mt-10 pt-8 border-t border-white/10 text-sm font-semibold uppercase tracking-wide">
+            <li class="flex items-center gap-2">
+              <svg class="text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Diagnostiqueurs certifiés
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Indépendants et assurés
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Implantés à Nice
+            </li>
+          </ul>
+
+          <p class="text-xs text-white/50 mt-8 leading-relaxed max-w-2xl">
+            Source : Cour des comptes, <a href="https://www.ccomptes.fr/sites/default/files/2025-06/2025%2006%2003_CP-Les%20diagnostics%20de%20performance%20%C3%A9nerg%C3%A9tique%20%28DPE%29.pdf" class="underline decoration-white/30 underline-offset-2 hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer">La mise en œuvre du diagnostic de performance énergétique</a>, juin 2025 — manquements au droit de la consommation relevés lors des contrôles de la DGCCRF en 2023.
+          </p>
+        </div>
+
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=1100&fit=crop"
+               alt="Diagnostic d'un bien immobilier sur la Côte d'Azur" width="900" height="1100" decoding="async"
+               class="rounded-[15px] w-full h-[320px] sm:h-[420px] lg:h-[520px] object-cover shadow-2xl">
+          <div class="absolute -bottom-6 left-4 right-4 sm:left-6 sm:right-auto bg-secondary text-white rounded-[15px] px-6 py-5 shadow-xl">
+            <p class="font-heading font-bold uppercase tracking-[1.5px] text-2xl leading-none">48h</p>
+            <p class="text-xs uppercase tracking-wider font-semibold mt-2 text-white/85">Délai d'intervention<br>sur tout le 06</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== QUEL EST VOTRE PROJET ? ==================== -->
+    <section class="py-20 lg:py-28 px-6 lg:px-12 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-14 text-center">
+          <span class="tag-primary mb-4">Votre situation</span>
+          <h2 class="text-3xl lg:text-4xl mt-4 mb-6">Quel est votre projet&nbsp;?</h2>
+          <div class="divider-accent is-centered mb-6"></div>
+          <p class="section-kicker text-base">Choisissez votre situation, nous vous guidons vers les diagnostics adaptés.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- 1. Vente -->
+          <article class="card flex flex-col items-center hover:shadow-xl transition-shadow">
+            <div class="icon-circle mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-3 text-secondary" style="letter-spacing:1.5px;">Je vends mon bien</h3>
+            <p class="text-sm leading-relaxed mb-6 grow">Identifiez les diagnostics obligatoires pour sécuriser votre vente et rassurez vos acheteurs.</p>
+            <a href="diagnostic-immobilier-vente-nice.html" class="btn-accent text-xs">
+              Préparer ma vente
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- 2. Location -->
+          <article class="card flex flex-col items-center hover:shadow-xl transition-shadow">
+            <div class="icon-circle mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/><path d="M9 11h3"/></svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-3 text-secondary" style="letter-spacing:1.5px;">Je mets mon bien en location</h3>
+            <p class="text-sm leading-relaxed mb-6 grow">Mettez votre bien en conformité avec les diagnostics locaux obligatoires et louez en toute sérénité.</p>
+            <a href="diagnostic-immobilier-location-nice.html" class="btn-accent text-xs">
+              Préparer ma location
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- 3. Travaux -->
+          <article class="card flex flex-col items-center hover:shadow-xl transition-shadow">
+            <div class="icon-circle mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-3 text-secondary" style="letter-spacing:1.5px;">Je prépare des travaux</h3>
+            <p class="text-sm leading-relaxed mb-6 grow">Anticipez les repérages réglementaires avant votre chantier pour éviter les surprises.</p>
+            <a href="diagnostic-avant-travaux-nice.html" class="btn-accent text-xs">
+              Préparer mes travaux
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- 4. Copropriété -->
+          <article class="card flex flex-col items-center hover:shadow-xl transition-shadow">
+            <div class="icon-circle mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/><path d="M9 11h.01"/><path d="M15 11h.01"/></svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-3 text-secondary" style="letter-spacing:1.5px;">Syndics de copropriété</h3>
+            <p class="text-sm leading-relaxed mb-6 grow">Organisez les diagnostics techniques des parties communes avec un partenaire rigoureux et disponible.</p>
+            <a href="diagnostic-copropriete-alpes-maritimes.html" class="btn-accent text-xs">
+              Intervenir en copropriété
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- 5. Professionnels -->
+          <article class="card flex flex-col items-center hover:shadow-xl transition-shadow">
+            <div class="icon-circle mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17a5 5 0 0 1-5-5V7"/><path d="M13 17a5 5 0 0 0 5-5V7"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/><path d="M8 17h8"/></svg>
+            </div>
+            <h3 class="text-xl font-bold uppercase mb-3 text-secondary" style="letter-spacing:1.5px;">Professionnels de l'immobilier</h3>
+            <p class="text-sm leading-relaxed mb-6 grow">Sécurisez vos dossiers de vente et de location avec un diagnostiqueur réactif et qualifié.</p>
+            <a href="diagnostic-agences-immobilieres-alpes-maritimes.html" class="btn-accent text-xs">
+              Accompagner mes clients
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- 6. Bloc contact -->
+          <article class="rounded-[15px] bg-ink text-white p-8 flex flex-col items-start justify-center text-left">
+            <span class="tag-primary mb-4">Un autre projet&nbsp;?</span>
+            <h3 class="text-2xl font-bold uppercase mb-3" style="letter-spacing:1.5px;">Parlons-en</h3>
+            <p class="text-sm text-white/80 leading-relaxed mb-6">
+              Vous ne vous reconnaissez pas dans ces situations&nbsp;? Décrivez-nous votre bien&nbsp;: nous identifions les diagnostics applicables et vous remettons un devis clair.
+            </p>
+            <div class="flex flex-col gap-3 w-full">
+              <a href="tel:+33493897568" class="btn-accent justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                04 93 89 75 68
+              </a>
+              <a href="diagnostics-immobiliers-nice.html" class="btn-ghost justify-center">Voir tous nos diagnostics</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== COMMENT ÇA MARCHE ? ==================== -->
+    <section class="py-20 lg:py-28 px-6 lg:px-12 bg-section">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-16 text-center">
+          <span class="tag-primary mb-4">Méthode</span>
+          <h2 class="text-3xl lg:text-4xl mt-4 mb-6">Un accompagnement simple en trois étapes</h2>
+          <div class="divider-accent is-centered mb-6"></div>
+          <p class="section-kicker text-base">De la demande de devis à la remise du rapport</p>
+        </div>
+
+        <ol class="grid md:grid-cols-3 gap-10 md:gap-8 relative">
+          <!-- Étape 1 -->
+          <li class="relative text-center flex flex-col items-center">
+            <div class="icon-box">
+              <div class="icon-circle">
+                <span class="font-heading font-bold text-3xl">1</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold uppercase mt-6 mb-4" style="letter-spacing:1.5px;">Demande de devis</h3>
+            <p class="text-sm leading-relaxed max-w-sm">
+              Vous nous contactez par téléphone ou via le formulaire en ligne. Nous vous posons quelques questions sur votre bien et votre projet pour vous établir un devis clair et détaillé.
+            </p>
+          </li>
+
+          <!-- Étape 2 -->
+          <li class="relative text-center flex flex-col items-center">
+            <div class="icon-box">
+              <div class="icon-circle">
+                <span class="font-heading font-bold text-3xl">2</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold uppercase mt-6 mb-4" style="letter-spacing:1.5px;">Intervention sur place</h3>
+            <p class="text-sm leading-relaxed max-w-sm">
+              Nous convenons d'un rendez-vous à votre convenance. Notre équipe se déplace dans tout le département des Alpes-Maritimes (06) pour réaliser les diagnostics sur site.
+            </p>
+          </li>
+
+          <!-- Étape 3 -->
+          <li class="relative text-center flex flex-col items-center">
+            <div class="icon-box">
+              <div class="icon-circle">
+                <span class="font-heading font-bold text-3xl">3</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold uppercase mt-6 mb-4" style="letter-spacing:1.5px;">Transmission du rapport</h3>
+            <p class="text-sm leading-relaxed max-w-sm">
+              Vous recevez vos rapports de diagnostic dans les délais convenus, directement par email, prêts à être intégrés à votre dossier de vente, de location ou de chantier.
+            </p>
+          </li>
+        </ol>
+
+        <div class="text-center mt-14">
+          <a href="devis-diagnostic-immobilier-nice.html" class="btn-accent btn-large">
+            Demander un devis
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VOTRE ÉQUIPE ==================== -->
+    <section class="py-20 lg:py-28 px-6 lg:px-12 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <div class="order-2 lg:order-1">
+            <span class="tag-primary mb-4">Le cabinet</span>
+            <h2 class="text-3xl lg:text-4xl mt-4 mb-6">Une équipe à votre écoute, implantée à Nice</h2>
+            <div class="divider-accent mb-8"></div>
+
+            <p class="text-base leading-relaxed mb-5">
+              <strong>L'équipe ADTI - Ex'im Azur</strong> met son expérience et son indépendance au service de vos projets immobiliers sur Nice et dans tout le département des Alpes-Maritimes.
+            </p>
+            <p class="text-base leading-relaxed mb-8">
+              Basée au <strong>40 avenue des Diables Bleus, 06300 Nice</strong>, elle assure vos interventions et vous accompagne de la demande de devis jusqu'à la remise des rapports. Votre interlocuteur&nbsp;: <strong>Matthias Wegener</strong>.
+            </p>
+
+            <ul class="space-y-5">
+              <li class="flex items-start gap-4">
+                <span class="text-accent mt-0.5 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span class="text-base"><strong class="font-heading uppercase tracking-[1.5px]">Indépendance totale</strong><br><span class="text-sm text-ink/75">Aucun lien avec des réseaux de mandataires ou des agences immobilières.</span></span>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="text-accent mt-0.5 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span class="text-base"><strong class="font-heading uppercase tracking-[1.5px]">Qualifications à jour</strong><br><span class="text-sm text-ink/75">Certifications et formations continues dans les différentes techniques de diagnostic.</span></span>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="text-accent mt-0.5 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span class="text-base"><strong class="font-heading uppercase tracking-[1.5px]">Assurance professionnelle</strong><br><span class="text-sm text-ink/75">Responsabilité civile professionnelle pour toutes les prestations réalisées.</span></span>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="text-accent mt-0.5 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span class="text-base"><strong class="font-heading uppercase tracking-[1.5px]">Connaissance du terrain</strong><br><span class="text-sm text-ink/75">Une expertise locale de Nice et des Alpes-Maritimes, du littoral à l'arrière-pays.</span></span>
+              </li>
+            </ul>
+
+            <div class="mt-10">
+              <a href="cabinet-diagnostic-immobilier-nice.html" class="btn-secondary">Découvrir le cabinet</a>
+            </div>
+          </div>
+
+          <div class="order-1 lg:order-2 grid gap-6">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&h=650&fit=crop"
+                 alt="Expert ADTI - Ex'im Azur réalisant un diagnostic immobilier à Nice" width="900" height="650" loading="lazy" decoding="async"
+                 class="rounded-[15px] w-full h-[260px] sm:h-[340px] object-cover shadow-lg">
+            <div class="rounded-[15px] bg-light border-l-[6px] border-accent p-6">
+              <p class="font-heading font-bold uppercase tracking-[1.5px] text-secondary mb-3">Nous trouver</p>
+              <address class="not-italic text-sm leading-relaxed text-ink/85">
+                ADTI - Ex'im Azur<br>
+                40 avenue des Diables Bleus<br>
+                06300 Nice
+              </address>
+              <p class="text-sm text-ink/85 mt-4">
+                <a href="tel:+33493897568" class="font-bold hover:text-primary transition-colors">04 93 89 75 68</a><br>
+                <a href="mailto:eximazur@exim.fr" class="hover:text-primary transition-colors">eximazur@exim.fr</a> · <a href="mailto:contact@adti06.com" class="hover:text-primary transition-colors">contact@adti06.com</a>
+              </p>
+              <p class="text-xs uppercase tracking-wider font-semibold text-ink/60 mt-4">Lun–Ven · 09h00–12h00 ; 14h00–18h00</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bandeau de garanties (icon boxes du styleguide) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-20 pt-14 border-t border-ink/10">
+          <div class="icon-box">
+            <div class="icon-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <p class="text-base font-bold uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Diagnostic</p>
+            <p class="text-sm uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Immobilier</p>
+          </div>
+          <div class="icon-box">
+            <div class="icon-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <p class="text-base font-bold uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Certification</p>
+            <p class="text-sm uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Qualité</p>
+          </div>
+          <div class="icon-box">
+            <div class="icon-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <p class="text-base font-bold uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Rapidité</p>
+            <p class="text-sm uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Intervention</p>
+          </div>
+          <div class="icon-box">
+            <div class="icon-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <p class="text-base font-bold uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Conformité</p>
+            <p class="text-sm uppercase" style="font-family:var(--font-heading); letter-spacing:1.5px;">Légale</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TÉMOIGNAGES ==================== -->
+    <section class="py-20 lg:py-28 px-6 lg:px-12 bg-section">
+      <div class="max-w-6xl mx-auto">
+        <!-- Dégradés partagés pour les demi-étoiles -->
+        <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="halfStar" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="50%" stop-color="#F6A316"/>
+              <stop offset="50%" stop-color="#D9D9D9"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="mb-14 text-center">
+          <span class="tag-primary mb-4">Avis clients</span>
+          <h2 class="text-3xl lg:text-4xl mt-4 mb-6">Ils nous ont fait confiance</h2>
+          <div class="divider-accent is-centered mb-6"></div>
+          <p class="section-kicker text-base">
+            Note agrégée <span class="text-primary">4,5/5</span> pour 8 avis —
+            <a href="https://www.immodvisor.com/pro/ex-im-azur-nice-06300-24616.html" class="underline decoration-accent decoration-2 underline-offset-4 hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">source Immodvisor</a>
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <figure class="bg-white rounded-[15px] p-7 shadow-sm flex flex-col">
+            <div class="flex items-center gap-1 text-accent mb-4" role="img" aria-label="Note 5 sur 5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </div>
+            <blockquote class="text-base leading-relaxed grow">« satisfait, rapide, efficace : relevé de surface et plans »</blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-ink/10 text-sm">
+              <span class="font-heading font-bold uppercase tracking-[1.5px] text-secondary">yk</span>
+              <span class="block text-ink/60 text-xs mt-1">26 février 2020</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-white rounded-[15px] p-7 shadow-sm flex flex-col">
+            <div class="flex items-center gap-1 text-accent mb-4" role="img" aria-label="Note 5 sur 5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </div>
+            <blockquote class="text-base leading-relaxed grow">« Les diagnostiques sont effectués en un temps record. Je recommande fortement. »</blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-ink/10 text-sm">
+              <span class="font-heading font-bold uppercase tracking-[1.5px] text-secondary">Merri</span>
+              <span class="block text-ink/60 text-xs mt-1">24 février 2020</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-white rounded-[15px] p-7 shadow-sm flex flex-col">
+            <div class="flex items-center gap-1 mb-4" role="img" aria-label="Note 4,5 sur 5">
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#halfStar)" d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </div>
+            <blockquote class="text-base leading-relaxed grow">« PROFESSIONNEL SERIEUX PONCTUEL ET DE BON CONSEIL ET TOUJOURS TRES DISPONIBLE ET TARIFICATION RAISONABLE »</blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-ink/10 text-sm">
+              <span class="font-heading font-bold uppercase tracking-[1.5px] text-secondary">ALAINMENTON</span>
+              <span class="block text-ink/60 text-xs mt-1">22 février 2020</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-white rounded-[15px] p-7 shadow-sm flex flex-col">
+            <div class="flex items-center gap-1 text-accent mb-4" role="img" aria-label="Note 5 sur 5">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </div>
+            <blockquote class="text-base leading-relaxed grow">« Très satisfait de la prestation fournie par un très bon professionnel »</blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-ink/10 text-sm">
+              <span class="font-heading font-bold uppercase tracking-[1.5px] text-secondary">Vinss006</span>
+              <span class="block text-ink/60 text-xs mt-1">18 février 2020</span>
+            </figcaption>
+          </figure>
+
+          <figure class="bg-white rounded-[15px] p-7 shadow-sm flex flex-col">
+            <div class="flex items-center gap-1 mb-4" role="img" aria-label="Note 4,5 sur 5">
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" class="text-accent" fill="currentColor" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#halfStar)" d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+            </div>
+            <blockquote class="text-base leading-relaxed grow">« Intervention rapide et prix raisonnable. Envoi des documents par mail »</blockquote>
+            <figcaption class="mt-5 pt-4 border-t border-ink/10 text-sm">
+              <span class="font-heading font-bold uppercase tracking-[1.5px] text-secondary">PB</span>
+              <span class="block text-ink/60 text-xs mt-1">17 février 2020</span>
+            </figcaption>
+          </figure>
+
+          <!-- Rappel note globale -->
+          <div class="rounded-[15px] bg-ink text-white p-7 flex flex-col items-center justify-center text-center">
+            <p class="font-heading font-bold text-5xl leading-none">4,5<span class="text-accent text-2xl">/5</span></p>
+            <p class="uppercase tracking-[1.5px] text-sm font-bold mt-4">8 avis vérifiés</p>
+            <p class="text-xs text-white/60 mt-2">Avis publiés sur Immodvisor</p>
+            <a href="https://www.immodvisor.com/pro/ex-im-azur-nice-06300-24616.html" target="_blank" rel="noopener noreferrer" class="btn-accent text-xs mt-6">Voir tous les avis</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== COUVERTURE ==================== -->
+    <section class="py-20 lg:py-28 px-6 lg:px-12 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-14 text-center">
+          <span class="tag-primary mb-4">Zone d'intervention</span>
+          <h2 class="text-3xl lg:text-4xl mt-4 mb-6">Intervention dans tout le département des Alpes-Maritimes</h2>
+          <div class="divider-accent is-centered mb-6"></div>
+          <p class="section-kicker text-base">Du littoral à l'arrière-pays</p>
+        </div>
+
+        <div class="rounded-[15px] overflow-hidden shadow-lg border border-ink/10">
+          <div id="map-couverture" role="img" aria-label="Carte du département des Alpes-Maritimes avec les villes d'intervention"></div>
+        </div>
+
+        <p class="text-base leading-relaxed mt-8 text-center max-w-3xl mx-auto">
+          ADTI - Ex'im Azur intervient à <strong>Nice</strong> et dans l'ensemble du <strong>06</strong>, du littoral à l'arrière-pays :
+        </p>
+
+        <ul class="flex flex-wrap justify-center gap-2.5 mt-6">
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Nice</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Cagnes-sur-Mer</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Saint-Laurent-du-Var</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Villeneuve-Loubet</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Antibes</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Grasse</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Mougins</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Cannes</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Théoule-sur-Mer</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Villefranche-sur-Mer</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Beaulieu-sur-Mer</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Èze</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Cap-d'Ail</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Roquebrune-Cap-Martin</li>
+          <li class="bg-light border border-ink/10 rounded-full px-4 py-2 text-sm font-semibold">Menton</li>
+        </ul>
+
+        <div class="text-center mt-10">
+          <a href="zones-intervention-alpes-maritimes.html" class="btn-secondary">Voir la page Zones d'intervention</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA FINALE ==================== -->
+    <section class="bg-ink text-white px-6 lg:px-12 py-20 lg:py-24">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="tag-primary mb-6">Prêt à démarrer&nbsp;?</span>
+        <h2 class="text-3xl lg:text-4xl mt-4 mb-6">Gagnez du temps et sécurisez votre projet : votre diagnostic immobilier réalisé en 48h</h2>
+        <div class="divider-accent is-centered mb-8"></div>
+        <p class="text-lg text-white/85 leading-relaxed mb-10 max-w-2xl mx-auto">
+          Obtenez un devis personnalisé en quelques minutes. Notre équipe vous répondra dans les meilleurs délais pour convenir d'une intervention rapide.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="devis-diagnostic-immobilier-nice.html" class="btn-accent btn-large justify-center">
+            Demander un devis
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="tel:+33493897568" class="btn-ghost btn-large justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            04 93 89 75 68
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="bg-ink text-white pt-16 pb-8 px-6 lg:px-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+
+        <div>
+          <img alt="Logo ADTI - Ex'im Azur" class="h-14 w-auto mb-5" src="https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png" width="56" height="56" loading="lazy">
+          <p class="font-heading font-bold uppercase tracking-[1.5px] text-lg leading-snug">ADTI - Ex'im Azur</p>
+          <address class="not-italic text-sm text-white/70 mt-3 leading-relaxed">
+            40 avenue des Diables Bleus<br>
+            06300 NICE
+          </address>
+        </div>
+
+        <div>
+          <h3 class="font-heading font-bold uppercase tracking-[1.5px] text-accent text-base mb-4">Contact</h3>
+          <ul class="space-y-3 text-sm text-white/80 footer-links">
+            <li class="flex items-start gap-2">
+              <span aria-hidden="true">📞</span>
+              <a href="tel:+33493897568" class="hover:text-accent transition-colors font-semibold">04 93 89 75 68</a>
+            </li>
+            <li class="flex items-start gap-2">
+              <span aria-hidden="true">✉️</span>
+              <span>
+                <a href="mailto:eximazur@exim.fr" class="hover:text-accent transition-colors">eximazur@exim.fr</a><br>
+                <a href="mailto:contact@adti06.com" class="hover:text-accent transition-colors">contact@adti06.com</a>
+              </span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span aria-hidden="true">🕘</span>
+              <span>Lun–Ven : 09h00 – 12h00 ; 14h00 – 18h00</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-heading font-bold uppercase tracking-[1.5px] text-accent text-base mb-4">Votre projet</h3>
+          <ul class="space-y-2.5 text-sm text-white/80 footer-links">
+            <li><a href="diagnostic-immobilier-vente-nice.html" class="hover:text-accent transition-colors">Je vends mon bien</a></li>
+            <li><a href="diagnostic-immobilier-location-nice.html" class="hover:text-accent transition-colors">Je mets mon bien en location</a></li>
+            <li><a href="diagnostic-avant-travaux-nice.html" class="hover:text-accent transition-colors">Je prépare des travaux</a></li>
+            <li><a href="diagnostic-copropriete-alpes-maritimes.html" class="hover:text-accent transition-colors">Syndics de copropriété</a></li>
+            <li><a href="diagnostic-agences-immobilieres-alpes-maritimes.html" class="hover:text-accent transition-colors">Professionnels de l'immobilier</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-heading font-bold uppercase tracking-[1.5px] text-accent text-base mb-4">Le cabinet</h3>
+          <ul class="space-y-2.5 text-sm text-white/80 footer-links">
+            <li><a href="diagnostics-immobiliers-nice.html" class="hover:text-accent transition-colors">Nos diagnostics</a></li>
+            <li><a href="cabinet-diagnostic-immobilier-nice.html" class="hover:text-accent transition-colors">Notre équipe &amp; garanties</a></li>
+            <li><a href="zones-intervention-alpes-maritimes.html" class="hover:text-accent transition-colors">Zones d'intervention</a></li>
+            <li><a href="devis-diagnostic-immobilier-nice.html" class="hover:text-accent transition-colors font-semibold">Demander un devis</a></li>
+          </ul>
+          <div class="flex items-center gap-3 mt-6">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/60">
+        <p>© 2026 ADTI - Ex'im Azur — Diagnostic immobilier à Nice et dans les Alpes-Maritimes (06).</p>
+        <ul class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 footer-links">
+          <li><a href="mentions-legales.html" class="hover:text-accent transition-colors">Mentions légales</a></li>
+          <li><a href="politique-confidentialite.html" class="hover:text-accent transition-colors">Politique de confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DONNÉES STRUCTURÉES ==================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "@id": "https://www.adti06.com/#cabinet",
+    "name": "ADTI - Ex'im Azur",
+    "description": "Diagnostic immobilier à Nice et dans les Alpes-Maritimes : DPE, amiante, plomb, gaz, électricité, termites, ERP et mesurages. Diagnostiqueurs certifiés, indépendants et assurés.",
+    "url": "https://www.adti06.com/",
+    "image": "https://exim.fr/wp-content/uploads/2024/10/cropped-logo_carre_rouge.png",
+    "telephone": "+33493897568",
+    "email": "contact@adti06.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "40 avenue des Diables Bleus",
+      "postalCode": "06300",
+      "addressLocality": "Nice",
+      "addressRegion": "Provence-Alpes-Côte d'Azur",
+      "addressCountry": "FR"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 43.7102, "longitude": 7.2620 },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Alpes-Maritimes (06)"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "09:00",
+        "closes": "12:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "14:00",
+        "closes": "18:00"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "reviewCount": "8",
+      "bestRating": "5",
+      "url": "https://www.immodvisor.com/pro/ex-im-azur-nice-06300-24616.html"
+    }
+  }
+  </script>
+
+  <!-- ==================== CARTE DE COUVERTURE ==================== -->
+  <script>
+    (function () {
+      var DEP06 = /*__DEP06__*/[[[44.361,6.8874],[44.3507,6.9226],[44.3452,6.9209],[44.3324,6.9272],[44.3109,6.9605],[44.2951,6.9575],[44.2944,6.9702],[44.2836,6.9719],[44.2867,6.9813],[44.2799,6.9957],[44.2521,6.9966],[44.2352,7.0085],[44.2314,7.0304],[44.2237,7.0388],[44.2322,7.0768],[44.2293,7.0865],[44.2203,7.0925],[44.2178,7.1139],[44.2001,7.1436],[44.208,7.1627],[44.1972,7.1777],[44.2013,7.1861],[44.1871,7.1936],[44.187,7.2007],[44.1685,7.2194],[44.1682,7.2283],[44.1754,7.2356],[44.1734,7.2409],[44.1561,7.2517],[44.1409,7.2814],[44.1475,7.3108],[44.1427,7.3212],[44.1459,7.3419],[44.116,7.358],[44.125,7.3929],[44.1119,7.4248],[44.1298,7.4298],[44.1258,7.4607],[44.1444,7.507],[44.1377,7.5202],[44.148,7.5346],[44.1464,7.5546],[44.1512,7.5654],[44.1552,7.5648],[44.1495,7.62],[44.1771,7.6366],[44.1768,7.6778],[44.1715,7.684],[44.1529,7.6708],[44.1472,7.6795],[44.1311,7.6666],[44.1183,7.6741],[44.0825,7.7188],[44.0746,7.7129],[44.0612,7.7144],[44.0546,7.7051],[44.0407,7.7005],[44.0282,7.6623],[44.0179,7.6618],[43.9983,7.6704],[43.9869,7.6637],[43.9852,7.6557],[43.9737,7.6524],[43.974,7.6435],[43.9542,7.6108],[43.9574,7.5985],[43.9482,7.5814],[43.9474,7.5694],[43.9433,7.5666],[43.9357,7.5736],[43.9292,7.5712],[43.9176,7.5579],[43.8997,7.562],[43.8823,7.5171],[43.8849,7.5115],[43.8794,7.5103],[43.8717,7.4979],[43.8498,7.4967],[43.8413,7.5079],[43.8025,7.5187],[43.788,7.5302],[43.784,7.5292],[43.781,7.5106],[43.7732,7.5063],[43.7672,7.4902],[43.7569,7.4821],[43.749,7.4868],[43.7596,7.4578],[43.7499,7.4449],[43.7487,7.4308],[43.7344,7.4123],[43.7296,7.4091],[43.7259,7.4156],[43.7194,7.4058],[43.7196,7.3887],[43.723,7.389],[43.7178,7.3727],[43.7207,7.3559],[43.7148,7.3506],[43.7117,7.3376],[43.7025,7.3298],[43.6896,7.3339],[43.687,7.3497],[43.6826,7.3416],[43.6864,7.3352],[43.6745,7.3313],[43.6769,7.3241],[43.6903,7.3199],[43.7002,7.3253],[43.7065,7.3147],[43.6981,7.3069],[43.6848,7.304],[43.6866,7.2936],[43.6978,7.2842],[43.6927,7.2849],[43.6943,7.2624],[43.6878,7.2406],[43.6786,7.2306],[43.6654,7.2303],[43.6473,7.2116],[43.6452,7.2007],[43.6513,7.2029],[43.6579,7.1945],[43.6535,7.157],[43.6363,7.1373],[43.6053,7.1265],[43.5946,7.1258],[43.5903,7.1303],[43.587,7.1218],[43.5834,7.1295],[43.5738,7.125],[43.5689,7.1406],[43.5555,7.1346],[43.5517,7.1451],[43.5446,7.1364],[43.5429,7.119],[43.5595,7.1217],[43.567,7.1129],[43.5709,7.0963],[43.563,7.0694],[43.5471,7.0546],[43.5421,7.0409],[43.5347,7.0377],[43.5458,7.0325],[43.5508,7.0166],[43.5455,6.9718],[43.5372,6.9551],[43.5164,6.9384],[43.5095,6.9378],[43.5062,6.9524],[43.5008,6.957],[43.4947,6.9497],[43.4855,6.9487],[43.4836,6.9311],[43.4801,6.9337],[43.4828,6.9138],[43.4937,6.9127],[43.5025,6.8842],[43.5272,6.8964],[43.5292,6.8788],[43.5527,6.8878],[43.5638,6.901],[43.5639,6.9082],[43.5727,6.9079],[43.5816,6.8984],[43.5983,6.912],[43.6115,6.8943],[43.603,6.8665],[43.6108,6.8575],[43.6044,6.8517],[43.6298,6.8168],[43.6282,6.7987],[43.6536,6.7832],[43.6665,6.7608],[43.6805,6.761],[43.6882,6.7645],[43.6934,6.7744],[43.7036,6.7742],[43.7106,6.7668],[43.7221,6.7667],[43.7273,6.7561],[43.7411,6.7525],[43.7368,6.7462],[43.7387,6.715],[43.746,6.7139],[43.7541,6.7014],[43.7579,6.6827],[43.7487,6.6574],[43.7655,6.6521],[43.7686,6.6401],[43.7751,6.646],[43.7857,6.6354],[43.7955,6.6415],[43.8043,6.6913],[43.8084,6.7061],[43.8149,6.712],[43.8242,6.7028],[43.8306,6.6679],[43.852,6.6782],[43.856,6.7028],[43.8591,6.6982],[43.8755,6.6962],[43.8791,6.6779],[43.888,6.6733],[43.8717,6.7484],[43.8835,6.7816],[43.9059,6.8003],[43.9097,6.7986],[43.9185,6.8323],[43.9147,6.8533],[43.9071,6.8542],[43.9068,6.8646],[43.8891,6.8846],[43.8995,6.944],[43.9278,6.9133],[43.9269,6.8983],[43.935,6.8843],[43.9452,6.8757],[43.9528,6.8755],[43.9544,6.8476],[43.9783,6.8457],[43.9833,6.8347],[43.9897,6.8387],[44.0053,6.798],[44.0234,6.7887],[44.0238,6.7762],[44.0409,6.7471],[44.0648,6.7476],[44.0796,6.7565],[44.1194,6.7186],[44.1245,6.7076],[44.136,6.7043],[44.1444,6.7073],[44.1494,6.698],[44.1566,6.7],[44.1692,6.6865],[44.1783,6.7019],[44.1898,6.6981],[44.2082,6.7176],[44.2182,6.7141],[44.2263,6.725],[44.2498,6.724],[44.2621,6.7591],[44.2744,6.7583],[44.2796,6.7635],[44.2723,6.7903],[44.2895,6.7865],[44.2983,6.7961],[44.3161,6.7961],[44.3214,6.8072],[44.3305,6.8089],[44.3327,6.8224],[44.3465,6.8403],[44.3442,6.8596],[44.361,6.8874]]];
+
+      if (typeof L === 'undefined') return;
+
+      var map = L.map('map-couverture', {
+        scrollWheelZoom: false,
+        attributionControl: true
+      }).setView([43.75, 7.15], 9);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      L.polygon(DEP06, {
+        color: '#D0404A',
+        fillColor: '#D0404A',
+        fillOpacity: 0.35,
+        weight: 2
+      }).addTo(map);
+
+      var villes = [
+        ['Nice', 43.7102, 7.2620],
+        ['Cagnes-sur-Mer', 43.6646, 7.1481],
+        ['Saint-Laurent-du-Var', 43.6736, 7.1881],
+        ['Villeneuve-Loubet', 43.6575, 7.1219],
+        ['Antibes', 43.5808, 7.1251],
+        ['Grasse', 43.6597, 6.9225],
+        ['Mougins', 43.6006, 6.9969],
+        ['Cannes', 43.5528, 7.0174],
+        ['Théoule-sur-Mer', 43.5075, 6.9394],
+        ['Villefranche-sur-Mer', 43.7044, 7.3072],
+        ['Beaulieu-sur-Mer', 43.7064, 7.3314],
+        ['Èze', 43.7275, 7.3617],
+        ["Cap-d'Ail", 43.7217, 7.4053],
+        ['Roquebrune-Cap-Martin', 43.7644, 7.4667],
+        ['Menton', 43.7745, 7.4977]
+      ];
+
+      villes.forEach(function (v) {
+        L.circleMarker([v[1], v[2]], {
+          radius: 6,
+          color: '#FFFFFF',
+          weight: 2,
+          fillColor: '#248887',
+          fillOpacity: 1
+        }).addTo(map).bindPopup('<strong>' + v[0] + '</strong><br>Diagnostic immobilier');
+      });
+
+      // Le conteneur est dans une grille : recalculer la taille après rendu.
+      window.addEventListener('load', function () { map.invalidateSize(); });
+      setTimeout(function () { map.invalidateSize(); }, 300);
+    })();
+  </script>
+
+  <!-- Mesure d'audience : emplacement réservé au script Udemi. -->
+</body>
+</html>
